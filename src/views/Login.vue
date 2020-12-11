@@ -33,10 +33,18 @@
           console.log('Está entrando');
           firebase.auth().signInWithEmailAndPassword(this.form.email, this.form.password)
           .then(resp => {
-            console.log(resp);
+            console.log(resp.user.email);
           })
           .catch(error => {
-            console.error(error);
+            if(error.code == 'auth/wrong-password') {
+              console.log('contraseña inválida');            
+            } else if(error.code == 'auth/invalid-email') {
+              console.log('correo inválido');
+            } else if(error.code == 'auth/user-disabled') {
+              console.log('usuario no identificado');            
+            } else {
+              console.log('error de ingreso');           
+            }
           })
         } else {
           console.log('No has ingresado bien');
