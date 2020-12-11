@@ -15,6 +15,8 @@
 </template>
 
 <script>
+  import firebase from 'firebase';
+
   export default {
     data() {
       return {
@@ -27,8 +29,15 @@
     },
     methods: {
       login() {
-        if(this.form.email && this.form.password) {
+        if(this.form.email && this.form.password && this.form.password.length >= 6) {
           console.log('Está entrando');
+          firebase.auth().signInWithEmailAndPassword(this.form.email, this.form.password)
+          .then(resp => {
+            console.log(resp);
+          })
+          .catch(error => {
+            console.error(error);
+          })
         } else {
           console.log('No has ingresado bien');
         }
