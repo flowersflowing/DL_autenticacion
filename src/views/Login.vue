@@ -17,6 +17,8 @@
 <script>
   import firebase from 'firebase';
 
+  // import { Message } from 'element-ui';
+
   export default {
     data() {
       return {
@@ -34,6 +36,7 @@
           firebase.auth().signInWithEmailAndPassword(this.form.email, this.form.password)
           .then(resp => {
             console.log(resp.user.email);
+            this.$router.push('home');
           })
           .catch(error => {
             if(error.code == 'auth/wrong-password') {
@@ -47,26 +50,20 @@
             }
           })
         } else {
-          console.log('No has ingresado bien');
+          console.log('error');
         }
       }
     },
-    // methods: {
-    //   onSubmit(evt) {
-    //     evt.preventDefault()
-    //     alert(JSON.stringify(this.form))
-    //   },
-    //   onReset(evt) {
-    //     evt.preventDefault()
-    //     // Reset our form values
-    //     this.form.email = ''
-    //     this.form.name = ''
-    //     // Trick to reset/clear native browser form validation state
-    //     this.show = false
-    //     this.$nextTick(() => {
-    //       this.show = true
-    //     })
-    //   }
-    // }
+    onReset(evt) {
+      evt.preventDefault()
+      // Reset our form values
+      this.form.email = ''
+      this.form.name = ''
+      // Trick to reset/clear native browser form validation state
+      this.show = false
+      this.$nextTick(() => {
+        this.show = true
+      })
+    }
   }
 </script>
