@@ -36,7 +36,7 @@
           firebase.auth().signInWithEmailAndPassword(this.form.email, this.form.password)
           .then(resp => {
             console.log(resp.user.email);
-            this.$router.push('home');
+            this.$router.push('/home');
           })
           .catch(error => {
             if(error.code == 'auth/wrong-password') {
@@ -52,18 +52,18 @@
         } else {
           console.log('error');
         }
+      },
+      onReset(evt) {
+        evt.preventDefault()
+        // Reset our form values
+        this.form.email = ''
+        this.form.name = ''
+        // Trick to reset/clear native browser form validation state
+        this.show = false
+        this.$nextTick(() => {
+          this.show = true
+        });    
       }
-    },
-    onReset(evt) {
-      evt.preventDefault()
-      // Reset our form values
-      this.form.email = ''
-      this.form.name = ''
-      // Trick to reset/clear native browser form validation state
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
-      })
     }
   }
 </script>
